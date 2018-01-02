@@ -1,4 +1,4 @@
---##### Conversion Calculator Lua Script for Cheat Engine
+--##### Conversion Calculator POC Lua Script for Cheat Engine
 --##### Author: FreeER (based on https://github.com/cheat-engine/cheat-engine/issues/243 by rcg4u)
 --##### Github: https://github.com/FreeER
 --##### Website: https://www.facebook.com/groups/CheatTheGame

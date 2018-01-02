@@ -1,4 +1,4 @@
---##### Convert Struct Display (type) for Cheat Engine
+--##### Convert Struct Display (type) Lua Function for Cheat Engine
 --##### Author: FreeER
 --##### Github: https://github.com/FreeER
 --##### Website: https://www.facebook.com/groups/CheatTheGame
