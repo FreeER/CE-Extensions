@@ -3,6 +3,10 @@
 --##### Github: https://github.com/FreeER
 --##### Website: https://www.facebook.com/groups/CheatTheGame
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+--[[
+  http://cheatthegame.net/?view=thread&id=37&part=1#postid-48
+  adds a context menu option to print offsets for pointers
+]]
 
 local function findMenu(mi)
   while not mi.Menu do mi = mi.Parent end

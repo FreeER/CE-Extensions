@@ -3,6 +3,13 @@
 --##### Website: http://forum.cheatengine.org/viewtopic.php?t=604314
 --##### Github: https://github.com/FreeER
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+--[[
+  http://forum.cheatengine.org/viewtopic.php?p=5731529
+  provides a way to highlight things in the disassembler, click the new menu option
+  and type in what you want highlighted eg. eax
+  note: highlights are global, they affect all disassemblers not just the one it was done from
+  note2: uncomment the 'local staticColor' line below to have a static color rather than random flashes
+]]
 
 -- BGR
 --local staticColor = 0xAE33AE

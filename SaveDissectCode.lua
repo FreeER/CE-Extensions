@@ -3,6 +3,10 @@
 --##### Github: https://github.com/FreeER
 --##### Website: https://www.facebook.com/groups/CheatTheGame
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+--[[
+  http://www.cheatengine.org/forum/viewtopic.php?t=580166&sid=2f5184fda985975d19a859a4de193cc7
+  adds a menu option to save dissected code data
+]]
 
 -- START OF USER CONFIG --
 local useGroupMenu = true

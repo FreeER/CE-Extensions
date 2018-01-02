@@ -1,8 +1,14 @@
---##### Save Dissect Code Lua Script for Cheat Engine
+--##### Generate Memory Records from Structure Lua Script for Cheat Engine
 --##### Author: FreeER (based on DB code snippet)
 --##### Github: https://github.com/FreeER
 --##### Website: https://www.facebook.com/groups/CheatTheGame
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+--[[
+  https://www.youtube.com/watch?v=V3SZWJQnGYs
+  Adds a menu option which generates memory records in the address list based
+  on a given base address and structure (id or name)
+  It also makes generateFromStructure available for other code to use
+]]
 
 -- START OF USER CONFIG --
 local useGroupMenu = true

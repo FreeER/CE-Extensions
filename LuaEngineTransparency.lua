@@ -3,6 +3,10 @@
 --##### Github: https://github.com/FreeER
 --##### Website: https://www.facebook.com/groups/CheatTheGame
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+--[[
+  http://forum.cheatengine.org/viewtopic.php?t=606479
+  add a menu option to make the lua engine always on top and transparent (based on given alpha value 0-255)
+]]
 
 -- START OF USER CONFIG --
 local useGroupMenu = true

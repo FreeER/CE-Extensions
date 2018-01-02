@@ -1,3 +1,15 @@
+--##### Convert Struct Display (type) for Cheat Engine
+--##### Author: FreeER
+--##### Github: https://github.com/FreeER
+--##### Website: https://www.facebook.com/groups/CheatTheGame
+--##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+--[[
+  provides a function called convertStructDisplay that takes the name of a
+  struct, the display type to change, and the new displa type
+  all elements of the first given type will be changed to the second given type
+    valid display types = 'dtHexadecimal', 'dtUnSignedInteger', and 'dtSignedInteger'
+]]
+
 local function getStructureIDByName(name)
   local lname = name:lower()
   local casematch = nil
