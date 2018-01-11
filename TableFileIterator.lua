@@ -18,6 +18,7 @@
 -- find what accesses the address, you'll find an instruction with either 0x10 (x64) or 0x8, take the register value (probably in *bx)
 -- and scan for it, you should only have a few results, check each to see which is accessed when you click the Tables menu
 -- once you've found the one that's actually used, that's the offset from the MainForm
+-- the key in the table below is the integer (first) result of getCheatEngineFileVersion()
 local knownTableFileOffsets = {
   [1688879925040206] = 0x0900, -- CE 6.7 x86, 0x0910 for rcg4u's CE with same file version...
   [1688879925040207] = 0x1058, -- CE 6.7 x64, 0x1078 for rcg4u's CE with same file version...
