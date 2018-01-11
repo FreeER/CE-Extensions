@@ -1,3 +1,19 @@
+--##### TableFileIterator script for Cheat Engine
+--##### Author: FreeER
+--##### Github: https://github.com/FreeER
+--##### Website: https://www.facebook.com/groups/CheatTheGame
+--##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+--[[
+  provides two functions tableFileIterator and tableFileIteratorReverse which
+  return iterators for CE's table files, only works for versions with offsets
+  listed in table below because it works by reading memory directly.
+  Probably best not to store the iterators since the table files could change before use...
+
+  If getCheatEngineFileVersion function does not exist, it also provides that
+
+  inspired by http://forum.cheatengine.org/viewtopic.php?p=5734637#5734637
+]]
+
 -- to find offsets start 2 instances of CE, in the first add some tablefiles in the second scan for the number of table files there are
 -- find what accesses the address, you'll find an instruction with either 0x10 (x64) or 0x8, take the register value (probably in *bx)
 -- and scan for it, you should only have a few results, check each to see which is accessed when you click the Tables menu
