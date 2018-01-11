@@ -3,19 +3,33 @@
 -- and scan for it, you should only have a few results, check each to see which is accessed when you click the Tables menu
 -- once you've found the one that's actually used, that's the offset from the MainForm
 local knownTableFileOffsets = {
-  [1688879925040206] = 0x900, -- 0x910 for rcg4u's CE with same file version...
-  [1688879925040207] = 0x1058, -- 0x1078 for rcg4u's CE with same file version...
+  [1688879925040206] = 0x0900, -- CE 6.7 x86, 0x0910 for rcg4u's CE with same file version...
+  [1688879925040207] = 0x1058, -- CE 6.7 x64, 0x1078 for rcg4u's CE with same file version...
+  [1688875630072592] = 0x08F0, -- CE 6.6 x86
+  [1688875630072593] = 0x1030, -- CE 6.6 x64
 }
+
+if not getCheatEngineFileVersion then
+  -- getCheatEngineFileVersion does not exist in CE 6.6
+  function getCheatEngineFileVersion()
+    local cepid = executeCodeLocal('GetProcessId',-1) -- getCheatEngineProcessID also does not exist in 6.6
+    local cename = getProcesslist()[cepid]
+    return getFileVersion(getCheatEngineDir() .. cename)
+  end
+end
 
 local function getTableFileOffset()
   return knownTableFileOffsets[getCheatEngineFileVersion()]
 end
 
-if not getTableFileOffset() then print('unkown CE version, update offset for TableFile') end
+if not getTableFileOffset() then
+  print('unkown CE version, update offset for TableFile')
+  return
+end
 
 local TFPGListOfTLuaFilesOffset = getTableFileOffset()
 local pointerSize = cheatEngineIs64Bit() and 8 or 4
-local TFPGListOfTLuaFiles = readPointerLocal(userDataToInteger(MainForm)+TFPGListOfTLuaFilesOffset)
+local TFPGListOfTLuaFiles = readPointerLocal(userDataToInteger(getMainForm())+TFPGListOfTLuaFilesOffset)
 
 -- warning it's probably not safe to delete files directly from the iterator
 -- create a table using it or try the reverse table iterator which _may_ be safer
@@ -49,6 +63,6 @@ end
 
 --[[
 for file in tableFileIterator() do
-  print(file.name)
+print(file.name)
 end
 ]]
