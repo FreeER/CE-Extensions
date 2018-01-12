@@ -14,6 +14,10 @@
   inspired by http://forum.cheatengine.org/viewtopic.php?p=5734637#5734637
 ]]
 
+-- https://youtu.be/s87WtAw636M updating offsets for different versions
+-- (first 5 minutes, rest is a quick attempt to show why it works)
+--
+-- text explanation
 -- to find offsets start 2 instances of CE, in the first add some tablefiles in the second scan for the number of table files there are
 -- find what accesses the address, you'll find an instruction with either 0x10 (x64) or 0x8, take the register value (probably in *bx)
 -- and scan for it, you should only have a few results, check each to see which is accessed when you click the Tables menu
