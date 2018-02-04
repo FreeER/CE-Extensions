@@ -8,6 +8,9 @@
   FO: Find out what address this RETNs to when right clicking on a RETN operation code (extremely useful for microsecond calls  to determine the highest XREF count resources)(edited)
 ]]
 
+-- global table to put function names so I don't have to remember exactlyw what I called them lol
+FreeER = FreeER or {}
+
 getRetAddressesList = {}
 function getRetAddresses(addr, stopChecking)
   if not debug_isDebugging() then debugProcess(0) end
@@ -53,3 +56,5 @@ function printRetAddressesList(addr, time)
     end
   end
 end
+FreeER.getRetAddresses = getRetAddresses
+FreeER.printRetAddressesList = printRetAddressesList

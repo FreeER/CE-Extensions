@@ -3,6 +3,9 @@
 --##### Github: https://github.com/FreeER
 --##### Website: https://www.facebook.com/groups/CheatTheGame
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+
+FreeER = FreeER or {}
+
 --[[
   adds addElementsToStructure function to let you add multiple elements to a struction, eg. 30 byte elements
   see function comment for more info
@@ -96,3 +99,4 @@ function addElementsToStructure(ident,startOffset,info,numElems,endOffset)
   end
 end
 
+FreeER.addElementsToStructure = addElementsToStructure

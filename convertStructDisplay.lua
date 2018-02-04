@@ -10,6 +10,7 @@
     valid display types = 'dtHexadecimal', 'dtUnSignedInteger', and 'dtSignedInteger'
 ]]
 
+FreeER = FreeER or {}
 local function getStructureIDByName(name)
   local lname = name:lower()
   local casematch = nil
@@ -47,3 +48,4 @@ function convertStructDisplay(structName, displayToChange, newDisplay)
     if e.DisplayMethod == displayToChange then e.DisplayMethod = newDisplay end
   end
 end
+FreeER.convertStructDisplay = convertStructDisplay
