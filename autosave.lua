@@ -29,7 +29,7 @@ local Time = CE_Open_Time:gsub("/", "."):gsub(":", ".")
 local luaSaves = {}
   luaSaves.current = 1
   for i=0,numSaves do
-    luaSaves[i] = ('%s\\Bak\\%s-lua-%i.bak'):format(CE_D, Time, i)
+    luaSaves[i] = ('%s\\Bak\\%s-lua-%i.lua'):format(CE_D, Time, i)
   end
   luaSaves.next = function()
     local Bak = luaSaves[luaSaves.current]
@@ -43,7 +43,7 @@ local luaSaves = {}
 local tableSaves = {}
   tableSaves.current = 1
   for i=0,numSaves do
-    tableSaves[i] = ('%s\\Bak\\%s-table-%i.bak'):format(CE_D, Time, i)
+    tableSaves[i] = ('%s\\Bak\\%s-table-%i.ct'):format(CE_D, Time, i)
   end
   tableSaves.next = function()
     local Bak = tableSaves[tableSaves.current]
