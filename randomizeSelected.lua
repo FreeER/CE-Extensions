@@ -74,6 +74,7 @@ end
 mi.OnClick = function()
   local al = getAddressList()
   local records = al.getSelectedRecords()
+  if not records then return end
   for k,v in pairs(records) do
     if v.Type ~= vtAutoAssembler and not v.isGroupHeader then
       local val = randomize(v)
@@ -86,7 +87,7 @@ miPrompt.onClick = function()
   local valid = {vtByte, vtWord, vtDword, vtQword, vtSingle, vtDouble}
   local al = getAddressList()
   local records = al.getSelectedRecords()
-  if #records < 0 then return end -- unlikely but maybe lol
+  if not records then return end
 
   min = inputQuery('min value', 'Min value:', 0)
   max = inputQuery('max value', 'Max value:', 100)
