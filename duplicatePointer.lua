@@ -77,9 +77,11 @@ mi.OnClick = function()
       showMessage('Invalid offset difference, was not a number')
       return
     end
+    local newOffset = offsetDiff
     for i=1,numCopies do
       local copy = duplicateMR(mr)
-      copy.Address = copy.Address .. (' %s %X'):format(offsetDiff>0 and'+'or'-',math.abs(offsetDiff))
+      copy.Address = copy.Address .. (' %s %X'):format(newOffset>0 and'+'or'-',math.abs(newOffset))
+      newOffset = newOffset + offsetDiff
     end
   else
     local offsetToChange = inputQuery('Offset Index to change', 'Offset Index to change', '0')
