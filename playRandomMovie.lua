@@ -48,6 +48,8 @@ extMenuItem.Caption = extItemCaption
 extMenu.add(extMenuItem)
 -- menu code --
 
+math.randomseed(os.time())
+
 local function findAllExtensions(path)
   local exts = {}
   for i,p in ipairs(getFileList(path, '', true)) do
