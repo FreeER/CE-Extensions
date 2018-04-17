@@ -63,23 +63,20 @@ for k,v in pairs(findAllExtensions(path)) do
 end
 ]]
 
-local settings = getSettings('FreeER-RandomMoviePlayer') --HKCU\Software\Cheat Engine\FreeER-RandomMoviePlayer
+local settings  = getSettings('FreeER-RandomMoviePlayer') --HKCU\Software\Cheat Engine\FreeER-RandomMoviePlayer
 local movieMask = settings.Value['movieMask']
-local command = settings.Value['command']
-local args = settings.Value['args']
 if not movieMask or movieMask == '' then
   movieMask = '*.m4v;*.mp4;*.m4a;*.avi;*.wmv;*.mkv;*.flv'
   settings.Value['movieMask'] = movieMask
 end
-if not command or command == '' then
-  command = 'vlc.exe'
-  settings.Value['command'] = command
-end
+local args      = settings.Value['args']
 if not args or args == '' then
-  args = '"%s"'
+  args = '"%s"' -- simple quote of file name
   settings.Value['args'] = args
 end
-local pathsep = package.config:sub(1,1)
+local command   = settings.Value['command'] --eg. 'vlc.exe' -- path to program to use for all files
+
+local pathsep   = package.config:sub(1,1)
 
 local function pickFile(path)
   path = path:gsub('[/\\]',pathsep)
@@ -87,9 +84,7 @@ local function pickFile(path)
   --print(path, #list)
   if #list < 1 then error('No files to pick from!', 2) end
   local file = list[math.random(#list)]
-  local _,ending = file:find(path)
-  local name,_ = file:sub(ending+2,#file-4):gsub('[%.%-_]', ' ')
-  return file, name
+  return file
 end
 
 extMenuItem.OnClick = function()
@@ -101,5 +96,9 @@ extMenuItem.OnClick = function()
   if not path or path:gsub(' ','') == '' then return end
   settings.Value['movieDirectory'] = path
 
-  shellExecute(command, args:format(pickFile(path)))
+  if not command or command == '' then
+    shellExecute(pickFile(path)) -- let windows use the default
+  else
+    shellExecute(command, args:format(pickFile(path)))
+  end
 end
