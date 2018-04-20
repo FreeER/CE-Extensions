@@ -15,7 +15,7 @@
 --------------------------- START OF CONFIGURATION -------------------
 ----------------------------------------------------------------------
 local numSaves = 5
-local tableSaveTime = 10 -- every n seconds
+local tableSaveTime = 5 -- every n seconds
 local luaEngineDelay = 5 -- seconds since typing to save
 ----------------------------------------------------------------------
 ---------------------------  END OF CONFIGURATION --------------------
@@ -44,6 +44,15 @@ local tableSaves = {}
   tableSaves.current = 1
   for i=0,numSaves do
     tableSaves[i] = ('%s\\Bak\\%s-table-%i.ct'):format(CE_D, Time, i)
+  end
+  tableSaves.prev = function()
+    local id = tableSaves.current - 1
+    if id < 1 then id = numSaves end
+    return tableSaves[id]
+  end
+  tableSaves.peek = function()
+    local Bak = tableSaves[tableSaves.current]
+    return Bak
   end
   tableSaves.next = function()
     local Bak = tableSaves[tableSaves.current]
@@ -89,9 +98,23 @@ local function Update_Lua_Bak_Timer(t)
 end
 
 local function Write_Table_Bak()
-  local Bak = tableSaves.next()
+  local Bak = tableSaves.peek()
   --print('saving table to', Bak)
   saveTable(Bak)
+  local prv = tableSaves.prev()
+  -- if they are the same then next time just overwrite the same one
+  local file = io.open(prv)
+  local overwriteNextTime
+  if file then
+    overwriteNextTime = md5file(prv) ~= md5file(Bak)
+    file:close()
+  else
+    overwriteNextTime = true
+  end
+  if overwriteNextTime then
+    --print('moving to next')
+    tableSaves.next()
+  end
 end
 
 ---------------------------------------------------------------------
