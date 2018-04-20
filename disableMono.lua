@@ -4,8 +4,7 @@
 --##### Website: https://www.facebook.com/groups/CheatTheGame
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
 --[[
-  adds a menu option to remove all hotkeys from memory records
-  note: this does not remove/destroy any hotkeys created by lua code only the gui
+  adds a menu option to disable mono in the Mono menu
 ]]
 
 -- START OF USER CONFIG --
