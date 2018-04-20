@@ -7,10 +7,6 @@
   adds a menu option to disable mono in the Mono menu
 ]]
 
--- START OF USER CONFIG --
-local useGroupMenu = true
--- END OF CONFIG --
-
 -- START OF EXT TEMPLATE CONFIG --
 local extItemCaption = 'Disable'
 -- START OF EXT TEMPLATE CONFIG --
