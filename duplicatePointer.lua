@@ -22,7 +22,7 @@ local function duplicateMR(main, appendTo)
     'Active', 'Color', 'ShowAsHex', 'ShowAsSigned', 'AllowIncrease',
     'AllowDecrease', 'Collapsed', 'Async', 'AsyncProcessing',
     'AsyncProcessingTime', 'OnActivate', 'OnDeactivate', 'OnDestroy',
-  'OnGetDisplayValue', 'DontSave'}
+  'OnGetDisplayValue', 'DontSave', 'isGroupHeader'}
 
   local mr = (AddressList or getAddressList()).createMemoryRecord()
   for _,p in ipairs(properties) do
