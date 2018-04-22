@@ -17,12 +17,13 @@ local del_menu = findMenu(del_mi)
 local mi = createMenuItem(del_menu)
 mi.Caption = 'Duplicate Pointer'
 
-local function duplicateMR(main, appendTo)
+local function duplicateMR(main)
   local properties = {'Description', 'Address', 'CustomTypeName', 'Script',
     'Active', 'Color', 'ShowAsHex', 'ShowAsSigned', 'AllowIncrease',
     'AllowDecrease', 'Collapsed', 'Async', 'AsyncProcessing',
     'AsyncProcessingTime', 'OnActivate', 'OnDeactivate', 'OnDestroy',
-  'OnGetDisplayValue', 'DontSave', 'isGroupHeader'}
+  'OnGetDisplayValue', 'DontSave', 'isGroupHeader', 'options'}
+  -- options is list of header options
 
   local mr = (AddressList or getAddressList()).createMemoryRecord()
   for _,p in ipairs(properties) do
@@ -48,13 +49,8 @@ local function duplicateMR(main, appendTo)
     mr.Hotkey[i] = main.Hotkey[i]
   end
 
-  someGlobalWorkAroundForDuplicateMR = appendTo
   for i=0,main.Count-1 do
-    local c = duplicateMR(main.Child[i], mr)
-    -- appendTo is nil in here for some f*ing reason....
-    if someGlobalWorkAroundForDuplicateMR then
-      c.appendToEntry(someGlobalWorkAroundForDuplicateMR)
-    end
+    duplicateMR(main.Child[i]).appendToEntry(mr)
   end
   --if main.IsReadable then mr.Value = main.Value end
   return mr
