@@ -28,8 +28,8 @@ local knownTableFileOffsets = {
   [1688879925040207] = 0x1058, -- CE 6.7 x64, 0x1078 for rcg4u's CE with same file version...
   [1688875630072592] = 0x08F0, -- CE 6.6 x86
   [1688875630072593] = 0x1030, -- CE 6.6 x64
-  [1688884220007808] = 0x0938, -- CE 6.8 x86
-  [1688884220007809] = 0x10C8, -- CE 6.8 x64
+  [1688884220007812] = 0x0938, -- CE 6.8 x86
+  [1688884220007811] = 0x10C8, -- CE 6.8 x64
 }
 
 if not getCheatEngineFileVersion then
@@ -46,7 +46,8 @@ local function getTableFileOffset()
 end
 
 if not getTableFileOffset() then
-  print('unkown CE version, update offset for TableFile')
+  local msg = 'unkown CE version %d, update offset for TableFile'
+  print(msg:format(getCheatEngineFileVersion()))
   return
 end
 
