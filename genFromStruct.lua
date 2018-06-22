@@ -18,7 +18,7 @@ local useGroupMenu = true
 -- IDEA rethink if pointers without childStructs should be ignored or autoGened (note no named elems) etc.
 
 -- START OF EXT TEMPLATE CONFIG --
-local extGroupMenuCaption = 'FreeER\'s Extensions'
+local extGroupMenuCaption = 'F&reeER\'s Extensions'
 local extItemCaption = 'GenFromStruct'
 local requiredVersion = 6.4 -- requirement for inputQuery
 -- START OF EXT TEMPLATE CONFIG --

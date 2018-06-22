@@ -13,7 +13,7 @@ local useGroupMenu = true
 -- END OF CONFIG --
 
 -- START OF EXT TEMPLATE CONFIG --
-local extGroupMenuCaption = 'FreeER\'s Extensions'
+local extGroupMenuCaption = 'F&reeER\'s Extensions'
 local extItemCaption = 'Remove Hotkeys'
 local requiredVersion = 6.4 -- Not actually sure what the requirement is... possibly whenever CE added the new OOP syntax
 -- START OF EXT TEMPLATE CONFIG --

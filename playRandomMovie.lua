@@ -12,7 +12,7 @@ local useGroupMenu = true
 -- END OF CONFIG --
 
 -- START OF EXT TEMPLATE CONFIG --
-local extGroupMenuCaption = 'FreeER\'s Extensions'
+local extGroupMenuCaption = 'F&reeER\'s Extensions'
 local extItemCaption = 'Play Random Movie'
 local requiredVersion = 6.4
 -- START OF EXT TEMPLATE CONFIG --

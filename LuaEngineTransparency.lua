@@ -13,7 +13,7 @@ local useGroupMenu = true
 -- END OF CONFIG --
 
 -- START OF EXT TEMPLATE CONFIG --
-local extGroupMenuCaption = 'FreeER\'s Extensions'
+local extGroupMenuCaption = 'F&reeER\'s Extensions'
 local extItemCaption = 'Lua Engine Transparency'
 local requiredVersion = 6.4 -- requirement for inputQuery
 -- START OF EXT TEMPLATE CONFIG --
