@@ -9,6 +9,7 @@
 
 -- START OF USER CONFIG --
 local useGroupMenu = true
+local extItemShortcut = 'ctrl+]'
 -- END OF CONFIG --
 
 -- START OF EXT TEMPLATE CONFIG --
@@ -45,6 +46,7 @@ end
 
 local extMenuItem = createMenuItem(extMenu)
 extMenuItem.Caption = extItemCaption
+extMenuItem.Shortcut = extItemShortcut
 extMenu.add(extMenuItem)
 -- menu code --
 
