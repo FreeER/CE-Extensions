@@ -24,12 +24,13 @@
 -- once you've found the one that's actually used, that's the offset from the MainForm
 -- the key in the table below is the integer (first) result of getCheatEngineFileVersion()
 local knownTableFileOffsets = {
-  [1688879925040206] = 0x0900, -- CE 6.7 x86, 0x0910 for rcg4u's CE with same file version...
-  [1688879925040207] = 0x1058, -- CE 6.7 x64, 0x1078 for rcg4u's CE with same file version...
-  [1688875630072592] = 0x08F0, -- CE 6.6 x86
-  [1688875630072593] = 0x1030, -- CE 6.6 x64
-  [1688884220007827] = 0x0938, -- CE 6.8 x86
-  [1688884220007828] = 0x10C8, -- CE 6.8 x64
+  [1688879925040206] = {0x0900}, -- CE 6.7 x86, 0x0910 for rcg4u's CE with same file version...
+  [1688879925040207] = {0x1058}, -- CE 6.7 x64, 0x1078 for rcg4u's CE with same file version...
+  [1688875630072592] = {0x08F0}, -- CE 6.6 x86
+  [1688875630072593] = {0x1030}, -- CE 6.6 x64
+  [1688884220007827] = {0x0938}, -- CE 6.8 x86
+  [1688884220007828] = {0x10C8}, -- CE 6.8 x64
+  [1688884220073440] = {0x10C8, 0x0938}, -- CE 6.8.1 x64, x86, same file version!
 }
 
 if not getCheatEngineFileVersion then
@@ -42,7 +43,10 @@ if not getCheatEngineFileVersion then
 end
 
 local function getTableFileOffset()
-  return knownTableFileOffsets[getCheatEngineFileVersion()]
+  local offsets = knownTableFileOffsets[getCheatEngineFileVersion()]
+  if not offsets then return nil end
+  -- incase both the x86 and x64 exes have the same file version
+  return offsets[CheatEngineIs64Bit() and 1 or 2]
 end
 
 if not getTableFileOffset() then
