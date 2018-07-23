@@ -96,11 +96,11 @@ extMenuItem.OnClick = function()
   end
   path = inputQuery('Movie Path', 'Movie Path', path)
   if not path or path:gsub(' ','') == '' then return end
-  settings.Value['movieDirectory'] = path
 
   if not command or command == '' then
     shellExecute(pickFile(path)) -- let windows use the default
   else
     shellExecute(command, args:format(pickFile(path)))
   end
+  settings.Value['movieDirectory'] = path
 end
