@@ -54,10 +54,13 @@ local function createMenu(f)
   themenu.OnClick = function()
     local dis = f.DisassemblerView
     local addr = GetAddressSafe(dis.SelectedAddress)
-    bps[addr] = not bps[addr]
-    if bps[addr] and not hasBP(addr) then
+    if not bps[addr] and not hasBP(addr) then
       debug_setBreakpoint(addr)
       bps[addr] = co_run
+    else
+      if bps[addr] == co_run then debug_removeBreakpoint(addr) end
+      if debug_isBroken() and EIP == addr then debug_continueFromBreakpoint(co_run) end
+      bps[addr] = false
     end
   end
   items.add(themenu)
