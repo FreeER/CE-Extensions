@@ -351,7 +351,7 @@ end
 
 -- no, we won't just take an address and generate one in the main addresslist
 -- if that's what you want then you create a memrec there and set the addr for us
-function generateFromStructure(mmr, struct, offset)
+function generateFromStructure(mmr, struct, offsetUsesName, offset)
   local isPointer = mmr and struct and offset == "pointer"
   if isPointer then offset = nil end
   if offset and type(offset) ~= "number" then error(("Given offset '%s' is not a number!"):format(offset),2)
@@ -380,6 +380,8 @@ function generateFromStructure(mmr, struct, offset)
 
     offset, errmsg = structureElementPrompt(struct)
     if not offset then showMessage(errmsg) return end
+
+    offsetUsesName = messageDialog('Use struct.name for offset?', mtConfirmation, mbYes, mbNo) == mrYes
   end
   if offset ~= nil and offset ~= 0 then
     offset = offsetToStr(offset, mmr.Address:sub(1,1) == '$', true)
@@ -392,13 +394,13 @@ function generateFromStructure(mmr, struct, offset)
     mr.Description = v.Name
     mr.Type = v.Vartype
     if not isPointer then
-      mr.Address = offsetToStr(v.Offset)
+      mr.Address = offsetUsesName and ('+%s.%s'):format(struct.name,v.Name) or offsetToStr(v.Offset)
       mr.ShowAsHex = v.DisplayMethod == 'dtHexadecimal'
       mr.ShowAsSigned = v.DisplayMethod == 'dtSignedInteger'
     else
       mr.Address = "+0"
       mr.OffsetCount = 1
-      mr.OffsetText[0] = offsetToStr(v.Offset)
+      mr.OffsetText[0] = offsetUsesName and ('+%s.%s'):format(struct.name,v.Name) or offsetToStr(v.Offset)
     end
 
     local doAdd = true
@@ -415,7 +417,7 @@ function generateFromStructure(mmr, struct, offset)
         local t = createTimer() t.Interval=50 t.OnTimer = function(t)
           mr.Collapsed = true t.destroy()
         end
-        generateFromStructure(mr, v.childStruct, "pointer")
+        generateFromStructure(mr, v.childStruct, offsetUsesName, "pointer")
       else
         doAdd = false
       end
