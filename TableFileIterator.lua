@@ -31,6 +31,7 @@ local knownTableFileOffsets = {
   [1688884220007827] = {0x0938}, -- CE 6.8 x86
   [1688884220007828] = {0x10C8}, -- CE 6.8 x64
   [1688884220073440] = {0x10C8, 0x0938}, -- CE 6.8.1 x64, x86, same file version!
+  [1688884220139076] = {0x10E0, 0x0948}, -- CE 6.8.2
 }
 
 if not getCheatEngineFileVersion then
