@@ -177,6 +177,7 @@ mScript.OnChange = function()
 end
 
 tableSaves.timer.OnTimer = Write_Table_Bak
+FreeER = FreeER or {}
 FreeER.autosave = {}
 FreeER.autosave.luaSaves = luaSaves
 FreeER.autosave.tableSaves = tableSaves
