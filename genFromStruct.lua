@@ -407,7 +407,7 @@ function generateFromStructure(mmr, struct, offsetUsesName, offset)
     if mr.Type == vtUnicodeString then mr.Type = vtString mr.String.Unicode = true end
     if mr.Type == vtString then mr.String.Size = v.Bytesize end
     if mr.Type == vtCustom then mr.CustomTypeName = v.CustomType.Name end
-    if mr.Type == vtByteArray then mr.Aob.Size = v.Bytesiz end
+    if mr.Type == vtByteArray then mr.Aob.Size = v.Bytesize end
     if mr.Type == vtPointer then
       mr.Type = vtDword -- vtPointer is just for struct, so use vtDword arbitrarily
       if v.childStruct then
