@@ -303,8 +303,8 @@ local al = getAddressList()
 local function offsetToStr(initialOffset, prependHex, invert)
   local offset = ("%+d"):format(initialOffset * (invert and -1 or 1))
   offset = ("%s %s%s"):format(offset:sub(1,1), 
-  prependHex and '0x' or '',
-  ("%X"):format(math.abs(initialOffset)))
+    prependHex and '0x' or '',
+    ("%X"):format(math.abs(initialOffset)))
   return offset
 end
 
@@ -418,7 +418,7 @@ function generateFromStructure(mmr, struct, offsetUsesName, offset)
           mr.Collapsed = true t.destroy()
         end
         generateFromStructure(mr, v.childStruct, offsetUsesName, "pointer")
-      else
+      else -- just some random pointer to who knows what... don't add it
         doAdd = false
       end
     end
