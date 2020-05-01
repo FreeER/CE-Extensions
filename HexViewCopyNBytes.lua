@@ -29,7 +29,7 @@ miCopyNBytes.OnClick=function()
   numbytes = tonumber(numbytes)
   if not numbytes then return end -- if it failed to convert
 
-  local format = '%2X '
+  local format = '%02X '
   local bytes = readBytes(start, numbytes, true)
   if not bytes then print('failed to read bytes') return end
   writeToClipboard(format:rep(#bytes):format(unpack(bytes)))
