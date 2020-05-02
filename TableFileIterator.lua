@@ -36,7 +36,8 @@ local knownTableFileOffsets = {
   [1688884220204718] = {0x10E0, 0x0948}, -- CE 6.8.3 postfix
   [1970324836980594] = {0x11A8, 0x09B0},  -- CE 7.0
   [1970324836980599] = {0x11B0, 0x09B4},  -- CE 7.0 rerelease
-  [1970329131948227] = {0x11C8, 0x09BC},  -- CE 7.0 rerelease
+  [1970329131948227] = {0x11C8, 0x09BC},  -- CE 7.1 release
+  [1970329131948229] = {0x11C8, 0x09BC},  -- CE 7.1 rerelease
 }
 
 if not getCheatEngineFileVersion then
