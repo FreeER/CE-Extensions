@@ -364,8 +364,8 @@ function generateFromStructure(mmr, struct, offsetUsesName, offset)
   if not (mmr and struct) then -- onclick or "api" w/o info
     if mmr == nil then
       mmr = al.SelectedRecord
-      -- ignore if it's an AA script or group header (no address)
-      if mmr.Type == vtAutoAssembler or mmr.IsGroupHeader then return end
+      -- ignore if it's an AA script or group header with no set address
+      if mmr.Type == vtAutoAssembler or (mmr.IsGroupHeader and mmr.Address == '') then return end
     end -- default to SelectedRecord
 
     if not mmr or not mmr.ClassName or not mmr.ClassName == "TMemoryRecord" then
