@@ -66,6 +66,15 @@ extMenuItem.OnClick = function()
   autosave.loadState()
 end
 
+extMenuItem = createMenuItem(extMenu)
+extMenuItem.Caption = 'Open Settings'
+extMenu.add(extMenuItem)
+extMenuItem.OnClick = function()
+  local settings = getSettingsForm()
+  local tabs = settings.pcSetting
+  tabs.ActivePage = autosave.settingsTab
+  settings.show()
+end
 
 extMenuItem = createMenuItem(extMenu)
 extMenuItem.Caption = 'Toggle Autosaving'
