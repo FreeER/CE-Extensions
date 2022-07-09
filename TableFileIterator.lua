@@ -4,6 +4,10 @@
 --##### Website: https://www.facebook.com/groups/CheatTheGame
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
 --[[
+  note you should probably just use Tim's code https://forum.cheatengine.org/viewtopic.php?p=5734555&sid=cb7c5b0af732c46cb766f12d627975dd
+  But if you really want to continue using this, I updated it for 7.4
+
+
   provides two functions tableFileIterator and tableFileIteratorReverse which
   return iterators for CE's table files, only works for versions with offsets
   listed in table below because it works by reading memory directly.
@@ -39,8 +43,7 @@ local knownTableFileOffsets = {
   [1970329131948227] = {0x11C8, 0x09BC},  -- CE 7.1 release
   [1970329131948229] = {0x11C8, 0x09BC},  -- CE 7.1 rerelease
   [1970333426915724] = {0x11E0, 0x09C8},  -- CE 7.2
-  [1970337721883673] = {0x11F0, 0x09DC},  -- CE 7.3
-  [1970337721883679] = {0x11F0, 0x09DC},  -- CE 7.3 hidden patch
+  [1970342016851077] = {0x1140, 0x09DC},  -- CE 7.4, x64, x86
 }
 
 if not getCheatEngineFileVersion then
@@ -55,7 +58,7 @@ end
 local function getTableFileOffset()
   local offsets = knownTableFileOffsets[getCheatEngineFileVersion()]
   if not offsets then return nil end
-  -- incase both the x86 and x64 exes have the same file version
+  --when both the x86 and x64 exes have the same file version
   return offsets[CheatEngineIs64Bit() and 1 or 2]
 end
 
