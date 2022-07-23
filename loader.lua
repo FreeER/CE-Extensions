@@ -19,7 +19,7 @@ for _,dir in pairs(scandir(ap)) do
     local full = ('%s\\%s'):format(ap,dir)
     local files = scandir(full,true,'lua')
     if files['init.lua'] then
-       require(full..'\\init.lua')
+       dofile(full..'\\init.lua')
     else
       for _,file in pairs(files) do
         local f = ('%s\\%s'):format(full,file)
