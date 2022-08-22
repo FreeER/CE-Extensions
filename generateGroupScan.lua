@@ -37,7 +37,7 @@ end
 local groupType = {vtByte=1, vtWord=2, vtDword=4, vtSingle='f', vtDOuble='d', vtString='s', vtUnicodeString='su', vtPointer='p', skip = 'w'}
 setmetatable(groupType, {__index = function(t,k) local v=rawget(t,k) if v then return v else error(('Unknown type %s'):format(k)) end end})
 
-function generateGroupScan(records)
+function generateGroupScan(records,noNames)
   if not records then return end
   local orderedRecords = {}
   for k,v in pairs(records) do table.insert(orderedRecords, v) end
@@ -48,18 +48,18 @@ function generateGroupScan(records)
     if k > 1 then
       local offset = mr.CurrentAddress - last.CurrentAddress
       local lastsize = getMRTypeSize(last)
-      if lastsize and offset > lastsize then info[#info+1] = ('w:%d'):format(offset - lastsize) end
+      if lastsize and offset > lastsize then info[#info+1] = ('%sw:%d'):format(not noNames and 'Skipping ' or '', offset - lastsize) end
     end
     local function formatValue(vt, value) if vt == vtString or vt == vtUnicodeString then return ("'%s'"):format(value) else return value end end
     if mr.Type == vtByteArray then
-      info[#info+1] = 'arrayStart'
+      if not noNames then info[#info+1] = 'arrayStart' end
       for byte in mr.value:gmatch('(%x%x)') do
         info[#info+1] = ('%s:%s'):format(groupType.vtByte, ('0x%s'):format(byte))
       end
-      info[#info+1] = 'arrayEnd'
+      if not noNames then info[#info+1] = 'arrayEnd' end
     elseif mr.Type == vtAutoAssembler then -- do nothing
     else
-      info[#info+1] = ('%s:%s'):format(groupType[mr.VarType], formatValue(mr.Type,mr.Value))
+      info[#info+1] = ('%s%s:%s'):format(not NoNames and ("'%s' "):format(mr.Description) or '', groupType[mr.VarType], formatValue(mr.Type,mr.Value))
     end
     last = mr
   end
