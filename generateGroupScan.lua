@@ -29,11 +29,7 @@ local function getMRTypeSize(mr)
     end
   end
 end
-local function GetVTName(vt)
-  for k,v in pairs(_G) do
-    if k:find('vt',1) and v == vt then return k end
-  end
-end
+
 local groupType = {vtByte=1, vtWord=2, vtDword=4, vtSingle='f', vtDOuble='d', vtString='s', vtUnicodeString='su', vtPointer='p', skip = 'w'}
 setmetatable(groupType, {__index = function(t,k) local v=rawget(t,k) if v then return v else error(('Unknown type %s'):format(k)) end end})
 
