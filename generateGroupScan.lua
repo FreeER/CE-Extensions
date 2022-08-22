@@ -52,7 +52,7 @@ function generateGroupScan(records,noNames)
     end
     local function formatValue(vt, value) if vt == vtString or vt == vtUnicodeString then return ("'%s'"):format(value) else return value end end
     if mr.Type == vtByteArray then
-      if not noNames then info[#info+1] = 'arrayStart' end
+      if not noNames then info[#info+1] = ("arrayStart '%s' "):format(mr.Description) end
       for byte in mr.value:gmatch('(%x%x)') do
         info[#info+1] = ('%s:%s'):format(groupType.vtByte, ('0x%s'):format(byte))
       end
