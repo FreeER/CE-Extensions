@@ -59,7 +59,7 @@ function generateGroupScan(records,noNames)
       if not noNames then info[#info+1] = 'arrayEnd' end
     elseif mr.Type == vtAutoAssembler then -- do nothing
     else
-      info[#info+1] = ('%s%s:%s'):format(not NoNames and ("'%s' "):format(mr.Description) or '', groupType[mr.VarType], formatValue(mr.Type,mr.Value))
+      info[#info+1] = ('%s%s:%s'):format(not noNames and ("'%s' "):format(mr.Description) or '', groupType[mr.VarType], formatValue(mr.Type,mr.Value))
     end
     last = mr
   end
