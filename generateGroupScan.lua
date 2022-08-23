@@ -30,7 +30,7 @@ local function getMRTypeSize(mr)
   end
 end
 
-local groupType = {vtByte=1, vtWord=2, vtDword=4, vtSingle='f', vtDOuble='d', vtString='s', vtUnicodeString='su', vtPointer='p', skip = 'w'}
+local groupType = {vtByte=1, vtWord=2, vtDword=4, vtSingle='f', vtDouble='d', vtString='s', vtUnicodeString='su', vtPointer='p', skip = 'w'}
 setmetatable(groupType, {__index = function(t,k) local v=rawget(t,k) if v then return v else error(('Unknown type %s'):format(k)) end end})
 
 function generateGroupScan(records,noNames)
