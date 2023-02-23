@@ -4,8 +4,12 @@
 --##### Website: https://www.facebook.com/groups/CheatTheGame
 --##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
 --[[
-  Primiarly seeks to add newMonoObject which provides a wrapper class around
+  Primarily seeks to add newMonoObject which provides a wrapper class around
   mono classes allowing ease of access to fields and methods.
+
+  Methods also should have all the mono_method_'name' stuff as method_object:name()
+  including compile and jit info
+
   eg.
 
   local mo1 = newMonoObject(instance_address, 'SomeClass') -- simpler
@@ -179,7 +183,7 @@ mono_method = {
   getSignature = function(self) return mono_method_getSignature(self.mono_method) end,
   getHeader = function(self) return mono_method_getHeader(self.mono_method) end,
   getILCode = function(self) return mono_methodheader_getILCode(mono_method_getHeader(self.mono_method)) end,
-  free_method = function(self) return mono_free_method(self.mono_method) end
+  free = function(self) return mono_free_method(self.mono_method) end
 }
 
 function newMonoMethod(method, address, domain)
