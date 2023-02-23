@@ -1,3 +1,44 @@
+--##### mono helper stuff
+--##### Author: FreeER
+--##### Github: https://github.com/FreeER
+--##### Website: https://www.facebook.com/groups/CheatTheGame
+--##### YouTube: https://www.youtube.com/channel/UCLy60mbqc3rSvh42jkpCDxw
+--[[
+  Primiarly seeks to add newMonoObject which provides a wrapper class around
+  mono classes allowing ease of access to fields and methods.
+  eg.
+
+  local mo1 = newMonoObject(instance_address, 'SomeClass') -- simpler
+  -- invokes method getMaxHp with 1 argument of type dword (4 bytes) and value 0
+  -- then writes the result of that to the field hp
+  mo1.hp = mo1.getMaxHp:invoke({type=vtDword,value=0})
+
+  mo1.Hp = 10000 -- writes 1000 to hp
+  -- note that we try to ignore the case of the first letter in fields and methods
+  -- so both hp and Hp will work because if the first doesn't exist it looks for the other
+  -- the case of the rest of the letters DO matter however, HP/hP is not the same as Hp/hp
+
+  -- many classes have a static field with the instance address so you can give 0
+  local mo2 = newMonoObject(0, 'SomeClass') -- static instance
+  -- then overwrite the address with the value from that static field
+  mo2.__address = mo2.static_instance_field_name
+
+  -- or you can use this simpler method
+  local mo3 = newMonoObject('static_instance_field_name', 'SomeClass')
+
+  -- if you have the mono class pointer available from somewhere you can use that too
+  local mo4 = newMonoObject(instance_address, mono_findClass('SomeClass'))
+
+  -- remember these are lua 'objects' aka tables so if you need another intance
+  -- you can't just do new=old new.__address=whatever because you'll change old too
+  -- to avoid newMonoObject having to re-ask mono for fields, statics, methods, etc.
+  -- you can copy those from an existing object of the same class
+  local mo5 = newMonoObject(another_instance_address, mo4)
+
+  -- alternatively you can provide all of the information yourself
+  -- newMonoObject(address, class, domain, fields, methods, static_address)
+]]
+
 -- create lookup table for defines.lua vt* var types used with invoking methods
 valueTypes = {}
 for k,v in pairs(_G) do
@@ -164,7 +205,11 @@ mono_object = {
   __index = function(t,k)
     local field = getField(t.__fields, k)
     if field then
-      local addr = field.isStatic and t.__static_address or t.__address
+      -- getAddress in case user gave a string/symbol (which could be updated to another value later)
+      -- we need the numeric address here for math with the offset, or needless string manipulation
+      -- static addresses should always be coming from mono as actual addresses however
+      -- (even user given static addresses from copies should derive from mono...right? lol)
+      local addr = field.isStatic and t.__static_address or getAddressSafe(t.__address)
 
       -- support reading unity/C# strings...
       -- note that _writing_ them is NOT supported, CE sees them as dwords/pointers
@@ -192,7 +237,7 @@ mono_object = {
   end
 }
 
--- address is needed for accessing fields and invoking methods (non-static)
+-- address is needed for accessing fields and methods (non-static)
 -- class is used for finding fields and methods, similarly domain for static fields (if needed)
 -- can pass an existing mono object as the class to instead copy fields, etc.
 
@@ -201,29 +246,33 @@ function newMonoObject(address, class, domain, fields, methods, static_address)
   LaunchMonoDataCollector()
   local mo
   if type(class) == 'string' then class = mono_findClass(class, domain) end
+  -- if user gives a mono object as the second argument then just copy that data
   if type(class) == 'table' and getmetatable(class) == mono_object then
-    mo = {__address=address, __classname = class.__classname,
-      __static_address=class.__static_address, __fields=class.__fields,
-    __methods=class.__methods}
+    mo = {}
+    for k,v in pairs(class) do
+      mo[k] = v
+    end
+    mo.__address = address
   else
-    -- fields parameter is used for copying to avoid finding fields repeatedly
-    -- so you really only need to provide one or the other, address can be changed later
-    -- as long as it doesn't start as nil, hence the or 0 below
     mo = {
       -- HOPEFULLY having these start with __ will reduce collisions with valid field names...
       -- I guess if they do at some point you'd have to use eg.
       -- mo.__fields.__address.offset to access the real mono objects __address field info
       -- and of course call the read and write functions yourself as well. sorry.
-      __classname = mono_class_getName(class),
+      -- defaults are necessary otherwise they fall into the __index metamethod, which we don't want here
+      __classname = mono_class_getName(class) or 'UnknownClassName', -- could avoid this if the user gives the classname, which is likely...
       __domain = domain or '',
-      __static_address = mono_class_getStaticFieldAddress(domain or '', class),
+      __static_address = mono_class_getStaticFieldAddress(domain or '', class) or 0,
       __address=address or 0,
       __fields=fields or findMonoFields(class) or {},
       __methods=methods or findMonoMethods(class) or {},
       -- should I have a copy function here?? would probably be useful...
     }
   end
+
+  -- now the data is known, setup the meta table so they get looked up when asked for
   setmetatable(mo, mono_object)
+
   -- try to support static instances by passing their field name as the address
   if type(address) == 'string' and not getAddressSafe(address) then
     local a = getField(mo.__fields, address)
