@@ -249,9 +249,8 @@ function newMonoObject(address, class, domain, fields, methods, static_address)
   -- if user gives a mono object as the second argument then just copy that data
   if type(class) == 'table' and getmetatable(class) == mono_object then
     mo = {}
-    for k,v in pairs(class) do
-      mo[k] = v
-    end
+    -- simple copy should work here since tables (fields/methods) will be mostly static stuff that won't change
+    for k,v in pairs(class) do mo[k] = v end
     mo.__address = address
   else
     mo = {
